@@ -17,7 +17,7 @@ scripts/test.sh'''
 
     stage('Docker Image Build') {
       steps {
-        sh 'docker build -t my_image'
+        sh 'docker build -t my_image .'
       }
     }
 
