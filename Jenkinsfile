@@ -28,24 +28,19 @@ pipeline {
 
         stage('Docker Image Build') {
             steps {
-              script {
-                docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
-              }
+                script {
+                    docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                }
             }
         }
 
         stage('Docker Push') {
             steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
-                )]) {
-                    sh '''
-                        echo $PASS | docker login -u $USER --password-stdin
-                        docker push ${DOCKERHUB_USER}/${DOCKER_IMAGE}:${DOCKER_TAG}
-                        docker logout
-                    '''
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                        docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+                        docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push('latest')
+                    }
                 }
             }
         }
