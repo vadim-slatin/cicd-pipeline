@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USER = 'pirx'
         DOCKER_IMAGE = 'pirx/cicd-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
@@ -34,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Docker Push') {
+        stage('Docker Image Push') {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
