@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         DOCKERHUB_USER = 'pirx'
-        DOCKER_IMAGE = 'cicd-app'
-        DOCKER_TAG = 'latest'
+        DOCKER_IMAGE = 'pirx/cicd-app'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -28,7 +28,9 @@ pipeline {
 
         stage('Docker Image Build') {
             steps {
-                sh 'docker build -t ${DOCKERHUB_USER}/${DOCKER_IMAGE}:${DOCKER_TAG} .'
+              script {
+                docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+              }
             }
         }
 
