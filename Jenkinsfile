@@ -13,7 +13,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Application Build') {
             steps {
                 sh '''
