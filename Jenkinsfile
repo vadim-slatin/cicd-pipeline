@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'pirx/cicd-app'
+        DOCKER_IMAGE = 'pirx/cicd-pipeline'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
 
