@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     environment {
         DOCKER_IMAGE = 'pirx/cicd-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
