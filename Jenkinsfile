@@ -7,6 +7,13 @@ pipeline {
     }
 
     stages {
+        stage('Git Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+    stages {
         stage('Application Build') {
             steps {
                 sh '''
